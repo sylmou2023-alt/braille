@@ -1,0 +1,282 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>English Braille Alphabet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single reading column; the alphabet is laid out as Braille's own three "lines" (a–j, k–t, u–z) so the pattern shows. */
+:root {
+  --paper: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #18212c;
+  --muted: #5b6774;
+  --rule: #d7dde3;
+  --dot: #17617a;
+  --dot-hi: #3f8fab;
+  --hole: #c9d2da;
+  --mark: #e7f0f3;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #11161c; --sheet: #182029; --ink: #e8edf2; --muted: #9aa7b4; --rule: #2b3642;
+    --dot: #6cc1dc; --dot-hi: #a9e2f3; --hole: #33414e; --mark: #1d2b35; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #11161c; --sheet: #182029; --ink: #e8edf2; --muted: #9aa7b4; --rule: #2b3642;
+  --dot: #6cc1dc; --dot-hi: #a9e2f3; --hole: #33414e; --mark: #1d2b35; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 1rem; line-height: 1.55;
+  padding-inline: 16px; padding-block: 32px 64px;
+}
+.wrap { max-width: 980px; margin-inline: auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.05rem; }
+p { margin: 0; max-width: 65ch; }
+.muted { color: var(--muted); }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dot); }
+code, .mono { font-family: var(--font-mono); font-size: 0.85em; }
+
+/* Header */
+header { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
+header .intro { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.key { display: flex; align-items: center; gap: 14px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 20px; }
+.key-cell { display: grid; grid-template-columns: repeat(2, 34px); grid-auto-rows: 34px; grid-auto-flow: column; grid-template-rows: repeat(3, 34px); gap: 6px; }
+.key-cell span { display: grid; place-items: center; border-radius: 50%; background: var(--dot); color: var(--sheet); font-family: var(--font-mono); font-weight: 600; font-size: 0.9rem; }
+.key p { font-size: 0.9rem; max-width: 18ch; }
+@media (max-width: 640px) { header { grid-template-columns: 1fr; } }
+
+/* Braille cell */
+.cell { display: inline-grid; grid-template-rows: repeat(3, var(--d)); grid-auto-flow: column; grid-auto-columns: var(--d); gap: calc(var(--d) * 0.55); --d: 14px; }
+.cell i { width: var(--d); height: var(--d); border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--hole); }
+.cell i.on { box-shadow: none; background: radial-gradient(circle at 35% 30%, var(--dot-hi), var(--dot) 65%); }
+.cell.sm { --d: 9px; }
+.cell.xs { --d: 7px; }
+
+/* Sections */
+section { display: flex; flex-direction: column; gap: 16px; }
+.section-head { display: flex; flex-direction: column; gap: 6px; }
+.decade { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
+.decade-label { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.decade-label strong { font-size: 0.95rem; }
+.decade-label span { color: var(--muted); font-size: 0.9rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 10px; }
+.tile { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 8px 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.tile .glyph { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+.tile .dots { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tile .word { font-size: 0.82rem; text-align: center; line-height: 1.2; }
+.tile.odd { background: var(--mark); border-color: var(--dot); }
+
+.note { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; font-size: 0.95rem; }
+.note p { max-width: none; }
+
+/* Converter */
+.tool { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+.tool label { font-weight: 700; }
+.tool input { width: 100%; font: inherit; font-size: 1.1rem; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.tool input:focus-visible, button:focus-visible { outline: 2px solid var(--dot); outline-offset: 2px; }
+.out { display: flex; flex-wrap: wrap; gap: 14px 22px; min-height: 60px; }
+.w { display: flex; gap: 8px; }
+.c { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.c small { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.uni { font-size: 1.6rem; letter-spacing: 0.08em; word-break: break-all; min-width: 0; }
+button { font: inherit; font-size: 0.9rem; font-weight: 700; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--dot); background: transparent; color: var(--dot); cursor: pointer; }
+button:hover { background: var(--mark); }
+
+footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
+footer p { max-width: none; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="intro">
+      <span class="eyebrow">Unified English Braille · Grade 1</span>
+      <h1>The Braille Alphabet</h1>
+      <p class="muted">Braille is read by touch. Each character is a cell of six possible raised dots, arranged in two columns of three. The dots are always numbered the same way, and each letter is described by the numbers of its raised dots.</p>
+    </div>
+    <div class="key" aria-label="Dot numbering: left column 1, 2, 3 top to bottom; right column 4, 5, 6 top to bottom">
+      <div class="key-cell"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+      <p class="muted">Left column 1–2–3, right column 4–5–6, top to bottom.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Letters</span>
+      <h2>A to Z</h2>
+      <p class="muted">The alphabet is built in three “lines” of ten. Learn the first ten letters and the rest follow a pattern.</p>
+    </div>
+    <div class="decade">
+      <div class="decade-label"><strong>Line 1 · a–j</strong><span>uses only the top four dots (1, 2, 4, 5)</span></div>
+      <div class="grid" id="d1"></div>
+    </div>
+    <div class="decade">
+      <div class="decade-label"><strong>Line 2 · k–t</strong><span>= a–j + dot 3</span></div>
+      <div class="grid" id="d2"></div>
+    </div>
+    <div class="decade">
+      <div class="decade-label"><strong>Line 3 · u–z</strong><span>= a–e + dots 3 and 6, except w</span></div>
+      <div class="grid" id="d3"></div>
+    </div>
+    <div class="note"><p><strong>Why is w the odd one out?</strong> Louis Braille invented the system in France in the 1820s, and French did not use the letter w at the time. It was added later, outside the pattern.</p></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Numbers</span>
+      <h2>Digits 1 to 0</h2>
+      <p class="muted">Braille has no separate digits. Put the <strong>number sign</strong> (dots 3-4-5-6) in front, and the letters a–j then mean 1–0.</p>
+    </div>
+    <div class="grid" id="nums"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Signs</span>
+      <h2>Capitals and punctuation</h2>
+      <p class="muted">A capital letter is shown by putting the capital sign (dot 6) before it. Two capital signs make the whole word uppercase.</p>
+    </div>
+    <div class="grid" id="signs"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Grade 2 · contracted braille</span>
+      <h2>Short forms for common words</h2>
+      <p class="muted">Most English books are printed in contracted braille, which saves space. When a letter stands alone as a word, it means a whole word. A few cells have their own word meanings too.</p>
+    </div>
+    <div class="grid" id="words"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Try it</span>
+      <h2>Write your own text in braille</h2>
+    </div>
+    <div class="tool">
+      <label for="txt">Type a word or sentence</label>
+      <input id="txt" type="text" value="Braille was invented in 1824." autocomplete="off" spellcheck="false">
+      <div class="out" id="out" aria-live="polite"></div>
+      <div class="row">
+        <span class="uni" id="uni"></span>
+      </div>
+      <div class="row">
+        <button type="button" id="copy">Copy braille text</button>
+        <span class="muted" id="copied" role="status"></span>
+      </div>
+      <p class="muted" style="font-size:.85rem">Uses uncontracted (grade 1) braille. Accents are removed, and ⇧ marks a capital sign and # marks a number sign.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>French braille uses the same 26 letters. The difference is in the extra signs: in French braille, the cells for English “and”, “for”, “of”, “the” and “with” are accented letters (ç, é, à, è, ù).</p>
+  </footer>
+</div>
+
+<script>
+const L = {a:"1",b:"12",c:"14",d:"145",e:"15",f:"124",g:"1245",h:"125",i:"24",j:"245",
+  k:"13",l:"123",m:"134",n:"1345",o:"135",p:"1234",q:"12345",r:"1235",s:"234",t:"2345",
+  u:"136",v:"1236",w:"2456",x:"1346",y:"13456",z:"1356"};
+const P = {".":"256", ",":"2", "?":"236", "!":"235", "'":"3", "’":"3", "-":"36", ":":"25", ";":"23"};
+
+function cell(dots, cls = "") {
+  let h = `<span class="cell ${cls}" aria-hidden="true">`;
+  for (let n = 1; n <= 6; n++) h += `<i class="${dots.includes(String(n)) ? "on" : ""}"></i>`;
+  return h + "</span>";
+}
+const fmt = d => d.split("").join("-");
+function tile({glyph, dots, word, odd, label}) {
+  return `<div class="tile${odd ? " odd" : ""}" aria-label="${label || glyph}: dots ${fmt(dots)}">
+    ${cell(dots)}
+    ${glyph ? `<span class="glyph">${glyph}</span>` : ""}
+    ${word ? `<span class="word">${word}</span>` : ""}
+    <span class="dots">${fmt(dots)}</span></div>`;
+}
+const fill = (id, items) => document.getElementById(id).innerHTML = items.map(tile).join("");
+
+fill("d1", "abcdefghij".split("").map(c => ({glyph: c, dots: L[c]})));
+fill("d2", "klmnopqrst".split("").map(c => ({glyph: c, dots: L[c]})));
+fill("d3", "uvxyzw".split("").map(c => ({glyph: c, dots: L[c], odd: c === "w"})));
+fill("nums", [{glyph: "#", dots: "3456", word: "number sign", odd: true}]
+  .concat("1234567890".split("").map((n, i) => ({glyph: n, dots: L["abcdefghij"[i]]}))));
+fill("signs", [
+  {glyph: "⇧", dots: "6", word: "capital sign", odd: true},
+  {glyph: ".", dots: "256", word: "full stop"},
+  {glyph: ",", dots: "2", word: "comma"},
+  {glyph: "?", dots: "236", word: "question mark"},
+  {glyph: "!", dots: "235", word: "exclamation"},
+  {glyph: "'", dots: "3", word: "apostrophe"},
+  {glyph: "-", dots: "36", word: "hyphen"},
+  {glyph: ":", dots: "25", word: "colon"},
+  {glyph: ";", dots: "23", word: "semicolon"},
+]);
+const WS = {b:"but",c:"can",d:"do",e:"every",f:"from",g:"go",h:"have",j:"just",k:"knowledge",l:"like",m:"more",
+  n:"not",p:"people",q:"quite",r:"rather",s:"so",t:"that",u:"us",v:"very",w:"will",x:"it",y:"you",z:"as"};
+fill("words", [
+  {word: "and", dots: "12346", odd: true}, {word: "for", dots: "123456", odd: true},
+  {word: "of", dots: "12356", odd: true}, {word: "the", dots: "2346", odd: true}, {word: "with", dots: "23456", odd: true},
+].concat(Object.entries(WS).map(([c, w]) => ({glyph: c, dots: L[c], word: w}))));
+
+// Converter (grade 1)
+const uni = d => String.fromCodePoint(0x2800 + [...d].reduce((m, n) => m | (1 << (n - 1)), 0));
+function encode(text) {
+  const words = [];
+  for (const raw of text.normalize("NFD").replace(/[̀-ͯ]/g, "").split(/\s+/).filter(Boolean)) {
+    const cells = [];
+    const letters = raw.replace(/[^A-Za-z]/g, "");
+    const allCaps = letters.length > 1 && letters === letters.toUpperCase();
+    let inNum = false;
+    if (allCaps) cells.push({d: "6", t: "⇧"}, {d: "6", t: "⇧"});
+    for (const ch of raw) {
+      if (/[0-9]/.test(ch)) {
+        if (!inNum) { cells.push({d: "3456", t: "#"}); inNum = true; }
+        cells.push({d: L["jabcdefghi"[+ch]], t: ch});
+        continue;
+      }
+      const lo = ch.toLowerCase();
+      if (L[lo]) {
+        if (inNum && "abcdefghij".includes(lo)) cells.push({d: "56", t: ";"});
+        inNum = false;
+        if (!allCaps && ch !== lo) cells.push({d: "6", t: "⇧"});
+        cells.push({d: L[lo], t: ch});
+      } else if (P[ch]) {
+        if (!(ch === "." || ch === ",")) inNum = false;
+        cells.push({d: P[ch], t: ch});
+      }
+    }
+    if (cells.length) words.push(cells);
+  }
+  return words;
+}
+const $ = id => document.getElementById(id);
+function render() {
+  const words = encode($("txt").value);
+  $("out").innerHTML = words.length
+    ? words.map(w => `<div class="w">${w.map(c => `<div class="c">${cell(c.d, "sm")}<small>${c.t.replace(/</g,"&lt;")}</small></div>`).join("")}</div>`).join("")
+    : `<p class="muted">Type something above to see it in braille.</p>`;
+  $("uni").textContent = words.map(w => w.map(c => uni(c.d)).join("")).join(" ");
+  $("copied").textContent = "";
+}
+$("txt").addEventListener("input", render);
+$("copy").addEventListener("click", () => {
+  const t = $("uni").textContent;
+  navigator.clipboard.writeText(t).then(() => $("copied").textContent = "Copied.")
+    .catch(() => {
+      const r = document.createRange(); r.selectNodeContents($("uni"));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      $("copied").textContent = "Selected. Press Ctrl+C to copy.";
+    });
+});
+render();
+</script>
+
+</body></html>
